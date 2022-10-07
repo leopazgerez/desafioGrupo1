@@ -1,3 +1,4 @@
+import 'package:desafiogrupo1/src/ui/pagecomponent/filter_component.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +20,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//  Parametros a recibir de la clase filtros seria: tamaño del container, colores, los filtros en base
+// los datos que estan cargados una variable de tipo funcion para que pueda interactuar con los de mas widgets
+// Habra que ver si se ajusta de manera correcta un VoidCallBack para la interaccion o si se debe hacer otro tipo
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -28,83 +33,19 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  late Toggle toggle;
-  bool _toggled4 = false;
-  bool _toggled1 = false;
-  bool _toggled2 = false;
-  bool _toggled3 = false;
-  _setToggle(bool value) {
-    switch (toggle) {
-      case Toggle.one:
-        return setState(() {
-          _toggled1 = value;
-        });
-    case Toggle.two:
-        return setState(() {
-          _toggled2 = value;
-        });
-    case Toggle.three:
-        return setState(() {
-          _toggled3 = value;
-        });
-    case Toggle.four:
-        return setState(() {
-          _toggled4 = value;
-        });
+  class _MyHomePageState extends State<MyHomePage> {
+    bool _toggled4 = false;
+    bool _toggled1 = false;
+    bool _toggled2 = false;
+    bool _toggled3 = false;
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: FilterComponent(),
+      );
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            SwitchListTile(
-              value: _toggled1,
-              onChanged: _setToggle,
-              title: const Text('Toggle'),
-              secondary: const Icon(Icons.ac_unit),
-            ),
-            SwitchListTile(
-              value: _toggled2,
-              onChanged: (bool value) {
-                setState(() {
-                  _toggled2 = value;
-                });
-              },
-              title: const Text('Toggle 1'),
-              secondary: const Icon(Icons.add_alert_outlined),
-            ),
-            SwitchListTile(
-              value: _toggled3,
-              onChanged: (bool value) {
-                setState(() {
-                  _toggled3 = value;
-                });
-              },
-              title: const Text('Toggle 2'),
-              secondary: const Icon(Icons.adb),
-            ),
-            SwitchListTile(
-              value: _toggled4,
-              onChanged: (bool value) {
-                setState(() {
-                  _toggled4 = value;
-                });
-              },
-              title: const Text('Toggle 3'),
-              secondary: const Icon(Icons.add_chart),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-enum Toggle { one, two, three, four }
